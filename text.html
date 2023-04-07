@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="cart.js"></script>
+</head>
+<body>
+  <h1>Danh sách sản phẩm</h1>
+  <ul id="productList">
+    <li data-id="1">
+      <h2>Sản phẩm 1</h2>
+      <p>Giá: $10</p>
+      <button class="addToCart">Thêm vào giỏ hàng</button>
+    </li>
+    <li data-id="2">
+      <h2>Sản phẩm 2</h2>
+      <p>Giá: $20</p>
+      <button class="addToCart">Thêm vào giỏ hàng</button>
+    </li>
+    <li data-id="3">
+      <h2>Sản phẩm 3</h2>
+      <p>Giá: $30</p>
+      <button class="addToCart">Thêm vào giỏ hàng</button>
+    </li>
+  </ul>
+  
+  <h1>Giỏ hàng</h1>
+  <ul id="cartItemList"></ul>
+  <p>Tổng tiền: <span id="cartTotal">$0</span></p>
+  <script>
+  $(document).ready(function() {
+  // Xử lý sự kiện khi người dùng nhấn nút "Thêm vào giỏ hàng"
+  $(".addToCart").click(function() {
+    // Lấy ID của sản phẩm được thêm vào giỏ hàng
+    var productId = $(this).parent().data("id");
+    
+    // Lấy thông tin giỏ hàng từ localStorage
+    var cart = JSON.parse(localStorage.getItem("cart")) || {};
+    
+    // Tăng số lượng sản phẩm trong giỏ hàng
+    cart[productId] = (cart[productId] || 0) + 1;
+    
+    // Lưu lại thông tin giỏ hàng vào localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+    
+    // Cập nhật số lượng sản phẩm trong giỏ hàng trên trang web
+    updateCartItemCount();
+  });
+  
+  // Xử lý sự kiện khi người dùng nhấn nút "Xóa"
+  $("#cartItemList").on("click", ".removeItem", function() {
+    // Lấy ID của sản phẩm cần xóa
+    var productId = $(this).parent().data("id");
+    
+    // Lấy thông tin giỏ hàng từ localStorage
+    var cart = JSON.parse(localStorage.getItem("cart")) || {};
+    
+    // Xóa sản phẩm khỏi giỏ hàng
+    delete cart[productId];
+    
+    // Lưu lại thông tin giỏ hàng vào localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+    
+    // Cập nhật số lượng sản phẩm trong giỏ hàng trên trang web
+    updateCartItemCount();
+    
+    // Cập nhật danh sách sản phẩm trong giỏ hàng trên trang web
+    updateCartItemList();
+  });
+  
+  // Cập nhật số lượng sản phẩm trong giỏ hàng trên trang web
+  function updateCartItemCount() {
+    var cart = JSON.parse(localStorage.getItem("cart")) || {};
+    var totalCount = 0;
+  }
+    
+    // Khở
+  </script>
+</body>
+</html>
